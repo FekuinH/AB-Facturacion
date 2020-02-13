@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: #e3f2fd;">
+
+    <a class="navbar-brand my-2" href="#">{{title}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <!-- <li class="nav-item" routerLinkActive="router-link-active">
+                <a class="nav-link" [routerLink]="['/clientes']" routerLinkActive="router-link-active">Inicio <span
+                        class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" routerLinkActive="router-link-active">
+                <a class="nav-link" [routerLink]="['/clientes']" routerLinkActive="router-link-active">Clientes </a>
+            </li>
+            <li class="nav-item" routerLinkActive="router-link-active">
+                <a class="nav-link" [routerLink]="['/clientes']" routerLinkActive="router-link-active">Facturas </a>
+            </li> -->
+
+        </ul>
+
+        <ul class="navbar-nav navbar-right d-flex">
+            <li *ngIf="!authService.isAuthenticated()"><a [routerLink]="['/login']"
+                    class="btn btn-outline-primary">Iniciar sesion</a></li>
+            <li *ngIf="authService.isAuthenticated()" class="dropdown">
+                <a class="btn btn-rounded btn-outline-primary dropdown-toggle" href="#" role="button"
+                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user-circle"></i> {{authService.usuario.userName}}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <button (click)="logOut()"class="dropdown-item" type="submit">Cerrar sesión</button>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+</nav>

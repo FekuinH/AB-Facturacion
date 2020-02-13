@@ -1,0 +1,55 @@
+<div class="card bg-light border-0" *ngIf="factura">
+    <div class="card-header">
+        {{titulo}}: {{factura.descripcion}}
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">
+
+        </h4>
+
+        <ul class="list-group my-2 shadow border-0">
+            <li class="list-group-item list-group-item-primary">Datos del cliente</li>
+            <li class="list-group-item">{{factura.cliente.nombre}}</li>
+            <li class="list-group-item">{{factura.cliente.apellido}}</li>
+        </ul>
+
+        <ul class="list-group my-2 shadow border-0">
+            <li class="list-group-item list-group-item-primary">Datos de la factura</li>
+            <li class="list-group-item">Folio: {{factura.id}}</li>
+            <li class="list-group-item">Descripcion: {{factura.descripcion}}</li>
+            <li class="list-group-item">Fecha : {{factura.fechaCreacion}}</li>
+        </ul>
+
+        <table class="table table-borderless table-hover shadow">
+            <thead class="list-group-item-primary">
+                <tr>
+                    <th>Productos</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of factura.items">
+                    <td>{{item.producto.nombre}}</td>
+                    <td>{{item.producto.precio}}</td>
+                    <td>{{item.cantidad}}</td>
+                    <td>{{item.importe}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <h5 class="float-right">
+            <span>Total factura: </span> <span class="badge badge-success">{{factura.total}}</span>
+        </h5>
+        <div class="card border-info mb-4" style="max-width: 300px;">
+            <div class="card card-header">
+                Observaciones
+            </div>
+            <div class="card card-body">
+                <p>No tiene observaciones</p>
+            </div>
+        </div>
+    </div>
+</div>

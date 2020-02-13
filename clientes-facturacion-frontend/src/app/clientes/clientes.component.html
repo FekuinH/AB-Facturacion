@@ -1,0 +1,71 @@
+<detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente>
+<div class="card-border shadow ">
+    <div class="card-header d-flex align-items-end">
+        <div class="col-md-5 ">
+            <h5>Clientes</h5>
+        </div>
+        <div class="text-right col-md-7">
+            <button *ngIf="authService.tienePermisos('ROLE_ADMIN')" class="btn btn-primary btn-rounded" type="button"
+                [routerLink]="['/clientes/form']">Nuevo
+                cliente</button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="alert alert-info my-2" *ngIf="clientesLista?.length==0">No hay clientes
+            registrados
+        </div>
+        <div class="table-responsive" *ngIf="clientesLista?.length>0">
+            <table class="table table-striped table-borderless">
+                <thead>
+                    <tr>
+                        
+                        <th *ngIf="authService.tienePermisos('ROLE_USER')"> Ver Perfil</th>
+                        <th> Nombre</th>
+                        <th> Apellido</th>
+                        <th> Dni </th>
+                        <th> Email</th>
+                        <th> Telefono</th>
+                        <th> Fecha de ingreso </th>
+                        <th *ngIf="authService.tienePermisos('ROLE_ADMIN')">Nueva factura </th>
+                        <th *ngIf="authService.tienePermisos('ROLE_ADMIN')">Editar</th>
+                        <th *ngIf="authService.tienePermisos('ROLE_ADMIN')">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientesLista">
+                        <td *ngIf="authService.tienePermisos('ROLE_USER')">
+
+                            <img *ngIf="cliente?.foto" src="{{urlBackend}}/api/uploads/img/{{cliente.foto}}"
+                                class="img-thumbnail rounded" (click)="abrirModal(cliente)"
+                                style="width: 72px; cursor: pointer; min-width: 50px;">
+                            <img *ngIf="!cliente?.foto" src="{{urlBackend}}/images/no-user.png"
+                                class="img-thumbnail rounded" (click)="abrirModal(cliente)"
+                                style="width: 72px; cursor: pointer; min-width: 50px;">
+
+                        </td>
+                        <td>{{cliente.nombre}}</td>
+                        <td>{{cliente.apellido}}</td>
+                        <td>{{cliente.dni}}</td>
+                        <td>{{cliente.email}}</td>
+                        <td>{{cliente.telefono}}</td>
+                        <td>{{cliente.fechaIngreso}}</td>
+                        <td><button *ngIf="authService.tienePermisos('ROLE_ADMIN')" type="button" class="btn btn-success btn-sm" [routerLink]="['/facturas/form', cliente.idCliente]">Crear</button></td>
+                        <td *ngIf="authService.tienePermisos('ROLE_ADMIN')">
+                            <button class="btn btn-rounded btn-info btn-sm" name="button"
+                                [routerLink]="['/clientes/form', cliente.idCliente]">Editar </button>
+                        </td>
+                        <td *ngIf="authService.tienePermisos('ROLE_ADMIN')">
+                            <button class="btn btn-rounden btn-danger btn-sm" name="eliminar"
+                                (click)='eliminar(cliente)'>Eliminar</button>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            <paginator [paginador]="paginador"></paginator>
+        </div>
+
+
+    </div>
+</div>
